@@ -80,9 +80,9 @@ def show_passwd(passwd):
 
 def package_passwd(passwd):
     pck = {}
-    for i in range(1,32):
-        pck[str(i)]=Password.get_passwd(passwd, i, 1)
-    
+    for i in range(1, 32):
+        pck[str(i)] = Password.get_passwd(passwd, i, 1)
+    return pck  # 返回存储密码哈希值的字典
 
 
 ############################
@@ -93,18 +93,14 @@ from xml.etree import ElementTree
 from urllib import parse
 
 
-def is_config():
-    return True
 
-
-def load_config(_phone :str , _pwd:str):
+def load_config(phone: str, pwd: str) -> None:
     today = time.strftime('%d', time.localtime(time.time()))
-    phone = _phone
-    login_pwd = package_passwd(_pwd)
+    login_pwd = Password.get_passwd(pwd, int(today), 1) # 获取当天的密码哈希值
     if login_pwd == "":
         input(str(today) + "号的登陆密码尚未配置")
         return
-    # 执行登陆操作
+    # 执行登录操作
     do_login(phone, login_pwd)
 
 
@@ -187,10 +183,10 @@ def do_login(phone: str, pwd: str) -> None:
 if __name__ == '__main__':
     phone = input("INPUT YOUR PHONE:")
     pin = input("INPUT YOUR PASSWORD:")
-    # show_passwd(pin)
+    show_passwd(pin)
     try:
         #登陆
-        load_config(phone,pin)
+        load_config(phone,pin)        
     except Exception as e:
         traceback.print_exc()
-        input("出现如下异常:%s" % e)
+        input("出现如下异常:%s" % e)    
