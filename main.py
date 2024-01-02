@@ -1,6 +1,10 @@
 import datetime
 import hashlib
 
+import sys, requests, configparser, time, json, os
+import traceback
+from xml.etree import ElementTree
+from urllib import parse
 data1 = {
     1: '5084972163',
     2: '9801567243',
@@ -83,15 +87,6 @@ def package_passwd(passwd):
     for i in range(1, 32):
         pck[str(i)] = Password.get_passwd(passwd, i, 1)
     return pck  # 返回存储密码哈希值的字典
-
-
-############################
-        
-import sys, requests, configparser, time, json, os
-import traceback
-from xml.etree import ElementTree
-from urllib import parse
-
 
 
 def load_config(phone: str, pwd: str) -> None:
@@ -183,7 +178,7 @@ def do_login(phone: str, pwd: str) -> None:
 if __name__ == '__main__':
     phone = input("INPUT YOUR PHONE:")
     pin = input("INPUT YOUR PASSWORD:")
-    show_passwd(pin)
+    #show_passwd(pin)
     try:
         #登陆
         load_config(phone,pin)        
