@@ -3,3 +3,4 @@ main.exe
 main.onefile-build/
 main.dist/
 main.build/
+main.cmd
